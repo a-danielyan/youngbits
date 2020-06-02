@@ -1,0 +1,19 @@
+ALTER TABLE `ip_leads` ADD COLUMN `lead_additional_information` text DEFAULT null;
+ALTER TABLE `ip_leads` ADD COLUMN `commission_rate_id` int(11) DEFAULT null;
+
+
+ALTER TABLE `ip_clients` ADD COLUMN `client_first_name` varchar(255) DEFAULT null;
+ALTER TABLE `ip_clients` ADD COLUMN `client_function_contactperson` varchar(255) DEFAULT null;
+ALTER TABLE `ip_clients` ADD COLUMN `client_file` varchar(1200) DEFAULT null;
+
+
+
+ALTER TABLE `ip_clients` ADD COLUMN `client_category` varchar(250) DEFAULT null
+ALTER TABLE `ip_clients` ADD COLUMN `client_sector` varchar(250) DEFAULT null
+ALTER TABLE `ip_clients` ADD COLUMN `client_responsible` varchar(250) DEFAULT null
+
+
+
+ALTER TABLE `ip_leads` ADD COLUMN `lead_responsible` varchar(250) DEFAULT null
+ALTER TABLE `ip_leads` ADD COLUMN `lead_sector` varchar(250) DEFAULT null
+

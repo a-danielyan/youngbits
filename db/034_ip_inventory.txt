@@ -1,0 +1,8 @@
+ALTER TABLE `ip_inventory` CHANGE  `inventory_purchase_location` `inventory_location_address` varchar(1200) DEFAULT NULL;
+ALTER TABLE `ip_inventory` CHANGE  `inventory_name` `inventory_german_title` varchar(255) DEFAULT NULL;
+ALTER TABLE `ip_inventory` CHANGE  `inventory_note` `inventory_note_german` TEXT DEFAULT NULL;
+ALTER TABLE `ip_inventory` ADD COLUMN `inventory_dutch_title` varchar(255) DEFAULT NULL;
+ALTER TABLE `ip_inventory` ADD COLUMN `inventory_engilsh_title` varchar(255) DEFAULT NULL;
+ALTER TABLE `ip_inventory` ADD COLUMN `inventory_category2` varchar(255) DEFAULT NULL;
+ALTER TABLE `ip_inventory` ADD COLUMN `inventory_note_dutch` TEXT DEFAULT NULL;
+ALTER TABLE `ip_inventory` ADD COLUMN `inventory_note_engilsh` TEXT DEFAULT NULL;

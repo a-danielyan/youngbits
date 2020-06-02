@@ -1,0 +1,145 @@
+/* =============================================================================
+   Spudu
+   Custom Stylesheet
+
+   All changes made in this file will override the default styles in PDFs.
+   ========================================================================== */
+   
+.row
+{
+}
+
+.screen-3
+{
+	width: 25%;
+}
+
+.screen-6
+{
+	width: 50%;
+}
+
+.screen-9
+{
+	width: 75%;
+}
+
+.screen-12
+{
+	width: 100%;
+}
+
+.pull-left {
+    float: left !important;
+}
+
+.pull-right {
+    float: right !important;
+}
+
+.text-align-right
+{
+	text-align: right;
+}
+
+.background-light-blue
+{
+    background-color: #F4F4F4;
+}
+
+.background-blue
+{
+	background-color: #0B7CC2;
+}
+
+.center {
+    margin: auto;
+    width: 60%;
+    padding: 10px;
+}
+
+.clear-both
+{
+	clear: both;
+}
+
+.padding-top-15
+{
+	padding-top: 15px;
+}
+	
+.height-1-cm
+{
+	height: 1cm;
+}
+
+.padding-15
+{
+	padding: 15px;
+}
+	
+.text-title
+{
+	color: white;
+	font-size: 16px;
+}
+
+.offer table, .offer td, .offer th
+{
+    border: 1px solid black;
+}
+
+.offer, .offer-results
+{
+	width: 21cm;
+}
+
+.offer td, .offer-results td
+{
+	line-height: 40px;
+}
+
+.offer table, .offer-results table
+{
+    border-collapse: collapse;
+    width: 21cm;
+}
+
+.offer td:first-child, .offer-results td:first-child
+{
+   width: 20%;
+}
+
+.offer td:nth-child(2), .offer-results td:nth-child(2)
+{
+	width: 30%;
+}
+
+.offer td:nth-child(3), .offer-results td:nth-child(3)
+{
+	width: 17%;
+}
+
+.offer td:nth-child(4), .offer-results td:nth-child(4)
+{
+	width: 16%;
+}
+
+.offer td:nth-child(5), .offer-results td:nth-child(5)
+{
+	width: 17%;
+}
+
+.line-heigh-40
+{
+	line-height: 40px;
+}
+
+.center-text {
+  text-align: center;
+}
+	
+.box-footer
+{
+    border: 1px solid black;
+}
