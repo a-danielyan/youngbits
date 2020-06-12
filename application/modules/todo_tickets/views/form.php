@@ -119,7 +119,6 @@
                                 <?php } ?>
                             </select>
                         </div>
-
                         <div class="form-group">
                             <label for="todo_ticket_number_of_hours_managers"><?php _trans('number_of_hours_managers'); ?>:</label>
                             <input type="text" name="todo_ticket_number_of_hours_managers" id="todo_ticket_number_of_hours_managers" class="form-control"
@@ -241,7 +240,7 @@
                                 <input type="text" name="todo_ticket_email_address" id="todo_ticket_email_address" class="form-control"
                                        value="<?=$this->mdl_todo_tickets->form_value('todo_ticket_email_address')?>"
                             </div>
-                        </div>
+                        </div>  
 
 
                         <div class="form-group">
@@ -345,22 +344,6 @@
                         </div>
                         <div class="form-group">
                             <div class="col-xs-12">
-                                <label for="expenses_amount" class="control-label"><?php _trans('amount'); ?></label>
-                            </div>
-                            <div class="col-xs-12 ">
-                                <div class="input-group">
-                                    <input type="number" min="0" step="0.01" name="expenses_amount" id="expenses_amount" class="form-control"
-                                           value="<?=(!empty($expenses->expenses_amount))?$expenses->expenses_amount:''?>">
-                                    <div class="input-group-addon">
-                                        $
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-xs-12">
                                 <label for="expenses_amount_euro" class="control-label"><?php _trans('amount'); ?></label>
                             </div>
                             <div class="col-xs-12 ">
@@ -369,6 +352,22 @@
                                            value="<?=(!empty($expenses->expenses_amount_euro))?$expenses->expenses_amount_euro:''?>">
                                     <div class="input-group-addon">
                                         <?php echo get_setting('currency_symbol') ?>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <label for="expenses_amount" class="control-label"><?php _trans('amount'); ?></label>
+                            </div>
+                            <div class="col-xs-12 ">
+                                <div class="input-group">
+                                    <input type="number" min="0" step="0.01" name="expenses_amount" id="expenses_amount" class="form-control"
+                                           value="<?=(!empty($expenses->expenses_amount))?$expenses->expenses_amount:''?>">
+                                    <div class="input-group-addon">
+                                        $
                                     </div>
                                 </div>
 

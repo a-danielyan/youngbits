@@ -26,8 +26,13 @@ class Mdl_Item_Amounts extends CI_Model
      */
     public function calculate($item_id = null, $currency = null)
     {
-
         $this->load->model('invoices/mdl_items');
+        if ($currency == null){
+            $currency = 1;
+        }
+        else{
+            $currency = $currency->currency_rate;
+        }
         $item = $this->mdl_items->get_by_id($item_id);
         $item_subtotal = $item->item_quantity * $item->item_price;
         $item_tax_total = $item_subtotal * ($item->item_tax_rate_percent / 100);
@@ -35,12 +40,12 @@ class Mdl_Item_Amounts extends CI_Model
         $item_total = $item_subtotal + $item_tax_total - $item_discount_total;
         $db_array = array(
             'item_id' => $item_id,
-            'item_subtotal' => $item_subtotal * $currency->currency_rate,
-            'item_tax_total' => $item_tax_total * $currency->currency_rate,
-            'item_discount' => $item_discount_total * $currency->currency_rate,
-            'item_total' => $item_total * $currency->currency_rate
+            'item_subtotal' => $item_subtotal * $currency,
+            'item_tax_total' => $item_tax_total * $currency,
+            'item_discount' => $item_discount_total * $currency,
+            'item_total' => $item_total * $currency
         );
-
+//        var_dump($db_array);die;
         $this->db->where('item_id', $item_id);
         if ($this->db->get('ip_invoice_item_amounts')->num_rows()) {
             $this->db->where('item_id', $item_id);

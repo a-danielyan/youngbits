@@ -85,7 +85,7 @@ class Invoices extends Custom_Controller
                     $total_not_paid += $invoice_not_paid->invoice_total;
                 }
             }
-            
+
         }
 
 

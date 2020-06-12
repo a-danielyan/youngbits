@@ -36,8 +36,8 @@ class Settings extends Admin_Controller
         // Save input if request is POSt
         if ($this->input->post('settings')) {
             $settings = $this->input->post('settings');
-
             // Only execute if the setting is different
+
             if ($settings['tax_rate_decimal_places'] != get_setting('tax_rate_decimal_places')) {
                 $this->db->query("
                     ALTER TABLE `ip_tax_rates` CHANGE `tax_rate_percent` `tax_rate_percent`
@@ -162,7 +162,8 @@ class Settings extends Admin_Controller
 
         // Get all themes
         $available_themes = $this->mdl_settings->get_themes();
-
+        $status = $this->mdl_settings->CertainPart();
+//        $this->session->set_userdata("statuses", $status);
         // Get the current version
         $current_version = $this->mdl_versions->limit(1)->where('version_sql_errors', 0)->get()->row()->version_file;
         $current_version = str_replace('.sql', '', substr($current_version, strpos($current_version, '_') + 1));
@@ -188,6 +189,7 @@ class Settings extends Admin_Controller
                 'email_templates_invoice' => $this->mdl_email_templates->where('email_template_type', 'invoice')->get()->result(),
                 'email_templates_offer' => $this->mdl_email_templates->where('email_template_type', 'offer')->get()->result(),
                 'gateway_drivers' => $gateways,
+                'status' => $status,
                 'gateway_currency_codes' => \Omnipay\Common\Currency::all(),
                 'current_version' => $current_version,
                 'first_days_of_weeks' => array('0' => lang('sunday'), '1' => lang('monday'))

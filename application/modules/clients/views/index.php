@@ -36,7 +36,7 @@
     <?php } ?>
 
     <div class="headerbar-item pull-right visible-lg">
-        <button class="btn btn-primary inport_button" >Inport</button>
+        <button class="btn btn-primary inport_button" >Import</button>
         <div class="btn-group btn-group-sm index-options">
             <a href="<?php echo site_url('clients/status/active/' . $filter_group); ?>"
                class="btn <?php echo $this->uri->segment(3) == 'active' || !$this->uri->segment(3) ? 'btn-primary' : 'btn-default' ?>">

@@ -236,7 +236,7 @@ class Mdl_Invoices extends Response_Model
         }
 
 
-      
+
         return $invoice_id;
     }
 
@@ -273,7 +273,7 @@ class Mdl_Invoices extends Response_Model
             );
 
             if (!$copy_recurring_items_only || $invoice_item->item_is_recurring) {
-                $this->mdl_items->save(null, $db_array);
+                $this->mdl_items->save(null, $db_array, null);
             }
         }
 
@@ -639,7 +639,7 @@ class Mdl_Invoices extends Response_Model
         $this->db->group_by('YEAR(invoice_date_created)');
         return  $this->db->get()->result_array();
     }
-    
+
 
     public function compbyning_by_year($years, $table = '', $amount = '')
     {
@@ -705,7 +705,7 @@ class Mdl_Invoices extends Response_Model
         $result = $this->db->get()->row();
         return $result->$column;
     }
-   
+
    private function get_months_by_quarter ($quarter) {
         $month = [];
         switch ($quarter) {

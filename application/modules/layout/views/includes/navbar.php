@@ -7,6 +7,7 @@
             </button>
         </div>
 
+ <?php $statuses = $this->session->userdata('statuses') ?>
 
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="ip-navbar-collapse">
@@ -27,21 +28,37 @@
                         </a>
                         <ul class="dropdown-menu">
                             <?php  if (!in_array($this->session->userdata('user_type'), array(TYPE_CLIENTS)) ) { ?>
-                                <li class="header_menu_group_title"><?= trans('appointments_app') ?></li>
-                                <?php if ($this->session->userdata('user_type') != TYPE_ACCOUNTANT): ?>
-                                    <li><?= anchor('appointments/form', trans('create_appointment')); ?></li>
+                                <?php if ( $statuses[0]['part_status'] == 'checked' ) : ?>
+                                    <li class="header_menu_group_title"><?= trans('appointments_app') ?></li>
                                 <?php endif;?>
-                                <li><?= anchor('appointments/index', trans('show_appointments')); ?></li>
-                                <li><?= anchor('calendars/index', trans('show_calendar')); ?></li>
+                                <?php if ($this->session->userdata('user_type') != TYPE_ACCOUNTANT): ?>
+                                    <?php if ( $statuses[0]['part_status'] == 'checked' ) : ?>
+                                         <li><?= anchor('appointments/form', trans('create_appointment')); ?></li>
+                                    <?php endif;?>
+                                <?php endif;?>
+                                <?php if ( $statuses[0]['part_status'] == 'checked' ) : ?>
+                                    <li><?= anchor('appointments/index', trans('show_appointments')); ?></li>
+                                <?php endif;?>
+
+                                <?php if ( $statuses[1]['part_status'] == 'checked' ) : ?>
+                                    <li><?= anchor('calendars/index', trans('show_calendar')); ?></li>
+                                <?php endif;?>
+
                                 <?php if ($this->session->userdata('user_type') == TYPE_ADMIN ): ?>
                                     <!-- TYPE_ADMINISTRATOR -->
-                                    <li><?=anchor('maps', trans('show_map')); ?> </li>
+
+                                    <?php if ($statuses[2]['part_status'] == 'checked' ) : ?>
+                                        <li><?=anchor('maps', trans('show_map')); ?> </li>
+                                    <?php endif;?>
                                 <?php endif; ?>
                             <?php } ?>
 
 
                             <?php  if (!in_array($this->session->userdata('user_type'), array(TYPE_CLIENTS)) ) { ?>
-                            <li class="header_menu_group_title"><?= trans('staywaykey_app') ?></li>
+                                <?php if ( $statuses[3]['part_status'] == 'checked' ) : ?>
+                                    <li class="header_menu_group_title"><?= trans('staywaykey_app') ?></li>
+                                <?php endif;?>
+
 
 
                             <?php  if (!in_array($this->session->userdata('user_type'), array(TYPE_ADMIN,TYPE_MANAGERS)) ) { ?>
@@ -55,14 +72,21 @@
                                 <!-- TYPE_ACCOUNTANT -->
                                 <li><?= anchor('fleets/index', trans('fleetmanagement')); ?></li>
                             <?php endif; ?>
-                            <?php if ($this->session->userdata('user_type') != TYPE_ACCOUNTANT): ?>
-                                <li><?=anchor('appointments/form', trans('add_ride')); ?></li>
-                            <?php endif; ?>
-                            <li><?=anchor('rides/list_rides', trans('list_rides')); ?></li>
+                                <?php if ( $statuses[3]['part_status'] == 'checked' ) : ?>
+                                    <?php if ($this->session->userdata('user_type') != TYPE_ACCOUNTANT): ?>
+                                        <li><?=anchor('appointments/form', trans('add_ride')); ?></li>
+                                    <?php endif; ?>
+                                    <li><?=anchor('rides/list_rides', trans('list_rides')); ?></li>
+                                <?php endif;?>
+
 
                             <?php } ?>
+                            <?php if ( $statuses[4]['part_status'] == 'checked' ) : ?>
                             <?php if ( in_array($this->session->userdata('user_type'), array(TYPE_ADMIN, TYPE_MANAGERS, TYPE_ADMINISTRATOR, TYPE_SALESPERSON,TYPE_CLIENTS)) ): ?>
-                                <li class="header_menu_group_title"><?= trans('webshop_app') ?></li>
+
+                                    <li class="header_menu_group_title"><?= trans('webshop_app') ?></li>
+
+
                                     <?php if ($this->session->userdata('user_type') != TYPE_CLIENTS): ?>
                                         <li><?= anchor('inventory/tablet_form', trans('enter_inventory')); ?></li>
                                     <?php endif; ?>
@@ -72,7 +96,7 @@
                                 <li class="header_menu_group_title"><?= trans('webshop_app') ?></li>
                                 <li><?= anchor('inventory/index', trans('view_inventory')); ?></li>
                             <?php endif; ?>
-
+                            <?php endif;?>
                             <?php if ( in_array($this->session->userdata('user_type'), array(TYPE_CLIENTS))){ ?>
                             <li class="header_menu_group_title"><?= trans('custom_apps') ?></li>
                             <li><?= anchor('/', trans('upwork')); ?></li>
@@ -94,16 +118,19 @@
                         </a>
                         <ul class="dropdown-menu">
                             <?php if($this->session->userdata('user_type') != TYPE_FREELANCERS): ?>
-                              
+
                                 <?php if ( in_array($this->session->userdata('user_type'), array(TYPE_ADMIN, TYPE_MANAGERS, TYPE_ACCOUNTANT)) ): ?>
                                     <?php if ( !$this->session->userdata('user_type') == TYPE_ACCOUNTANT) { ?>
                                         <li><a href="#" class="create-invoice"><?php _trans('create_invoice'); ?></a></li>
                                     <?php } ?>
                                     <li><?= anchor('invoices/index', trans('view_invoices')); ?></li>
                                     <li><?= anchor('invoices/recurring/index', trans('view_recurring_invoices')); ?></li>
-                                    <li>
-                                        <?= anchor('bank_statements/index', trans('bank_statements')); ?>
-                                    </li>
+                                    <?php if ( $statuses[5]['part_status'] == 'checked' ) : ?>
+                                        <li>
+                                            <?= anchor('bank_statements/index', trans('bank_statements')); ?>
+                                        </li>
+                                    <?php endif;?>
+
                                     <li><hr></li>
                                 <?php endif; ?>
 
@@ -113,67 +140,87 @@
 
                                 <?php if ( in_array($this->session->userdata('user_type'), array(TYPE_ADMIN, TYPE_ACCOUNTANT)) ) { ?>
                                     <li><?= anchor('payments/index', trans('view_payments')); ?></li>
+                                <?php if ( $statuses[6]['part_status'] == 'checked' ) : ?>
                                     <?php  if (in_array($this->session->userdata('user_type'), array(TYPE_ADMIN, TYPE_MANAGERS, TYPE_ACCOUNTANT, TYPE_ADMINISTRATOR))) { ?>
                                         <li><?= anchor('upfront_payments/index', trans('upfront_payments_view')); ?></li>
                                         <?php if ($this->session->userdata('user_type') != TYPE_ACCOUNTANT) { ?>
-                                            <li><?= anchor('upfront_payments/form', trans('upfront_payments_add')); ?></li>
+                                                <li><?= anchor('upfront_payments/form', trans('upfront_payments_add')); ?></li>
                                         <?php } ?>
                                     <?php } ?>
+                                    <?php endif;?>
 
                                     <li><hr></li>
                                 <?php } ?>
 
                                 <?php if ( in_array($this->session->userdata('user_type'), array(TYPE_ADMIN, TYPE_MANAGERS, TYPE_ACCOUNTANT)) ) { ?>
-                                    <li><?= anchor('invoices/reports', trans('financial_reports')); ?></li>
-                                    <li><?= anchor('company_savings/index', trans('show_company_savings')); ?></li>
+                                    <?php if ( $statuses[7]['part_status'] == 'checked' ) : ?>
+                                        <li><?= anchor('invoices/reports', trans('financial_reports')); ?></li>
+                                    <?php endif;?>
+                                    <?php if ( $statuses[31]['part_status'] == 'checked' ) : ?>
+                                        <li><?= anchor('company_savings/index', trans('show_company_savings')); ?></li>
+                                    <?php endif;?>
+
                                 <?php } ?>
                                 <?php if ($this->session->userdata('user_type') == TYPE_ADMIN || $this->session->userdata('user_type') == TYPE_ACCOUNTANT): ?>
                                     <!-- <li><?= anchor('reports/invoice_aging', trans('invoice_aging')); ?></li> -->
                                     <!-- <li><?= anchor('reports/payment_history', trans('payment_history')); ?></li> -->
                                     <li><hr></li>
                                 <?php endif; ?>
-
-                                <?php if ($this->session->userdata('user_type') == TYPE_ADMIN) { ?>
-                                    <li><?= anchor('recurring_income/form', trans('recurring_income_create')); ?></li>
-                                    <li><?= anchor('recurring_income/index', trans('recurring_income_show')); ?></li>
-                                    <li><hr></li>
-                                <?php } ?>
-
-
-                                <?php if (! in_array($this->session->userdata('user_type'), array(TYPE_FREELANCERS, TYPE_EMPLOYEES, TYPE_SALESPERSON)) ) { ?>
-                                    <?php  if ($this->session->userdata('user_type') != TYPE_ACCOUNTANT) { ?>
-                                        <li><?= anchor('subscriptions/form', trans('create_subscriptions')); ?></li>
+                                <?php if ( $statuses[28]['part_status'] == 'checked' ) : ?>
+                                    <?php if ($this->session->userdata('user_type') == TYPE_ADMIN) { ?>
+                                        <li><?= anchor('recurring_income/form', trans('recurring_income_create')); ?></li>
+                                        <li><?= anchor('recurring_income/index', trans('recurring_income_show')); ?></li>
+                                        <li><hr></li>
                                     <?php } ?>
-                                    <li><?= anchor('subscriptions/index', trans('view_subscriptions')); ?></li>
-                                <?php } ?>
-
-
-                                <?php  if (!in_array($this->session->userdata('user_type'), array(TYPE_FREELANCERS, TYPE_EMPLOYEES, TYPE_SALESPERSON))) { ?>
-                                    <li><?= anchor('expenses/index', trans('expenses_view')); ?></li>
-                                <?php } ?>
+                                <?php endif;?>
+                                <?php if ( $statuses[29]['part_status'] == 'checked' ) : ?>
+                                    <?php if (! in_array($this->session->userdata('user_type'), array(TYPE_FREELANCERS, TYPE_EMPLOYEES, TYPE_SALESPERSON)) ) { ?>
+                                        <?php  if ($this->session->userdata('user_type') != TYPE_ACCOUNTANT) { ?>
+                                            <li><?= anchor('subscriptions/form', trans('create_subscriptions')); ?></li>
+                                        <?php } ?>
+                                        <li><?= anchor('subscriptions/index', trans('view_subscriptions')); ?></li>
+                                    <?php } ?>
+                                <?php endif;?>
+                                <?php if ( $statuses[30]['part_status'] == 'checked' ) : ?>
+                                    <?php  if (!in_array($this->session->userdata('user_type'), array(TYPE_FREELANCERS, TYPE_EMPLOYEES, TYPE_SALESPERSON))) { ?>
+                                        <li><?= anchor('expenses/index', trans('expenses_view')); ?></li>
+                                    <?php } ?>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                            <?php if ( $statuses[30]['part_status'] == 'checked' ) : ?>
+                             <!--add_expenses_tablet-->
+                              <li><?= anchor('expenses/tablet_form', trans('expenses_add')); ?></li>
                             <?php endif; ?>
 
-                            <!--add_expenses_tablet-->
-                            <li><?= anchor('expenses/tablet_form', trans('expenses_add')); ?></li>
 
 
 
-                          
-                          
                             <?php if ($this->session->userdata('user_type') == TYPE_ADMIN) { ?>
                                 <!-- <li><hr></li> -->
                                 <!-- <li><?= anchor('company_savings/form', trans('add_company_saving')); ?></li> -->
                                 <!-- <li><?= anchor('company_savings/index', trans('show_company_savings')); ?></li> -->
                             <?php } ?>
-                               
+
                             <li><hr></li>
                             <li class="header_menu_group_title"><?= trans('taxes') ?></li>
-                            <li><?= anchor('/', trans('united_states')); ?></li>
-                            <li><?= anchor('/', trans('germany')); ?></li>
-                            <li><?= anchor('/', trans('france')); ?></li>
-                            <li><?= anchor('/', trans('the_netherlands')); ?></li>
-                            <li><?= anchor('/', trans('belgium')); ?></li>
-                            <li><?= anchor('/', trans('poland')); ?></li>
+                            <?php if ( $statuses[8]['part_status'] == 'checked' ) : ?>
+                                <li><?= anchor('/', trans('united_states')); ?></li>
+                            <?php endif;?>
+                            <?php if ( $statuses[9]['part_status'] == 'checked' ) : ?>
+                                <li><?= anchor('/', trans('germany')); ?></li>
+                            <?php endif;?>
+                            <?php if ( $statuses[10]['part_status'] == 'checked' ) : ?>
+                                <li><?= anchor('/', trans('france')); ?></li>
+                            <?php endif;?>
+                            <?php if ( $statuses[11]['part_status'] == 'checked' ) : ?>
+                                <li><?= anchor('/', trans('the_netherlands')); ?></li>
+                            <?php endif;?>
+                            <?php if ( $statuses[12]['part_status'] == 'checked' ) : ?>
+                                <li><?= anchor('/', trans('belgium')); ?></li>
+                            <?php endif;?>
+                            <?php if ( $statuses[13]['part_status'] == 'checked' ) : ?>
+                                <li><?= anchor('/', trans('poland')); ?></li>
+                            <?php endif;?>
 
 
                         </ul>
@@ -181,7 +228,7 @@
                     <?php } ?>
                     <!-- Sales -->
                     <?php if (! in_array($this->session->userdata('user_type'), array(TYPE_FREELANCERS, TYPE_EMPLOYEES,TYPE_CLIENTS)) ): ?>
-                  
+
                             <li class="dropdown">
                             <a href="#" class="dropdown-toggle navbar_link" data-toggle="dropdown">
                                 <span class="hidden-md"><?php _trans('sales'); ?></span>
@@ -189,7 +236,7 @@
                                 <i class="visible-md-inline fa fa-users"></i>
                             </a>
                             <ul class="dropdown-menu">
-                               
+
                                 <?php if( in_array($this->session->userdata('user_type'), array(TYPE_ADMIN, TYPE_MANAGERS, TYPE_ACCOUNTANT)) ){ ?>
                                     <?php if (USE_QUOTES): ?>
                                         <?php if($this->session->userdata('user_type') != TYPE_ACCOUNTANT): ?>
@@ -209,42 +256,55 @@
                                     <li><?= anchor('units/index', trans('product_units')); ?></li>
                                     <li><hr></li>
                                 <?php } ?>
-
-                                <?php if( in_array($this->session->userdata('user_type'), array(TYPE_ADMIN, TYPE_MANAGERS)) ) : ?>
-                                    <!-- Menu TYPE_EMPLOYEES and TYPE_FREELANCERS -->
-                                    <li><?= anchor('clients/form', trans('add_client')); ?></li>
-                                    <li><?= anchor('clients/index', trans('view_clients')); ?></li>
-                                    <li><hr></li>
-                                <?php endif; ?>
-
+                                <?php if ( $statuses[14]['part_status'] == 'checked' ) : ?>
+                                    <?php if( in_array($this->session->userdata('user_type'), array(TYPE_ADMIN, TYPE_MANAGERS)) ) : ?>
+                                        <!-- Menu TYPE_EMPLOYEES and TYPE_FREELANCERS -->
+                                            <li><?= anchor('clients/form', trans('add_client')); ?></li>
+                                        <li><?= anchor('clients/index', trans('view_clients')); ?></li>
+                                        <li><hr></li>
+                                    <?php endif; ?>
+                                <?php endif;?>
                                 <?php if ( in_array($this->session->userdata('user_type'), array(TYPE_ADMIN, TYPE_MANAGERS, TYPE_ADMINISTRATOR)) ): ?>
-                                    <li><?= anchor('reports/sales_by_client', trans('sales_by_client')); ?></li>
-                                    <li><?= anchor('reports/sales_by_year', trans('sales_by_date')); ?></li>
+                                    <?php if ( $statuses[15]['part_status'] == 'checked' ) : ?>
+                                        <li><?= anchor('reports/sales_by_client', trans('sales_by_client')); ?></li>
+                                    <?php endif;?>
+                                    <?php if ( $statuses[16]['part_status'] == 'checked' ) : ?>
+                                        <li><?= anchor('reports/sales_by_year', trans('sales_by_date')); ?></li>
+                                    <?php endif;?>
+
+
                                     <li><hr></li>
                                 <?php endif; ?>
 
                                 <?php if ( in_array($this->session->userdata('user_type'), array(TYPE_ADMIN, TYPE_MANAGERS, TYPE_SALESPERSON)) ): ?>
-
-                                    <li><?= anchor('leads/form', trans('add_lead')); ?></li>
-                                    <li><?= anchor('leads/index', trans('view_leads')); ?></li>
+                                     <?php if ( $statuses[32]['part_status'] == 'checked' ) : ?>
+                                        <li><?= anchor('leads/form', trans('add_lead')); ?></li>
+                                        <li><?= anchor('leads/index', trans('view_leads')); ?></li>
+                                    <?php endif;?>
                                     <li><hr></li>
-                                    <li><?= anchor('distributors/form', trans('add_distributor')); ?></li>
-                                    <li><?= anchor('distributors/index', trans('view_distributors')); ?></li>
+                                    <?php if ( $statuses[17]['part_status'] == 'checked' ) : ?>
+                                        <li><?= anchor('distributors/form', trans('add_distributor')); ?></li>
+                                        <li><?= anchor('distributors/index', trans('view_distributors')); ?></li>
+                                    <?php endif;?>
 
                                     <li><hr></li>
-                                    <li><?= anchor('suppliers/form', trans('add_supplier')); ?></li>
-                                    <li><?= anchor('suppliers/index', trans('view_suppliers')); ?></li>
+                                    <?php if ( $statuses[18]['part_status'] == 'checked' ) : ?>
+                                        <li><?= anchor('suppliers/form', trans('add_supplier')); ?></li>
+                                        <li><?= anchor('suppliers/index', trans('view_suppliers')); ?></li>
+                                    <?php endif;?>
 
-
-                                    <?php if ($this->session->userdata('user_type') == TYPE_ADMIN): ?>
-                                        <li><hr></li>
-                                        <li><?= anchor('legal_issues/form', trans('enter_legal_issues')); ?></li>
+                                    <?php if ( $statuses[19]['part_status'] == 'checked' ) : ?>
+                                        <?php if ($this->session->userdata('user_type') == TYPE_ADMIN): ?>
+                                            <li><hr></li>
+                                                <li><?= anchor('legal_issues/form', trans('enter_legal_issues')); ?></li>
+                                        <?php endif; ?>
+                                    <?php endif;?>
+                                <?php endif; ?>
+                                <?php if ( $statuses[19]['part_status'] == 'checked' ) : ?>
+                                    <?php if ( in_array($this->session->userdata('user_type'), array(TYPE_ADMIN, TYPE_ACCOUNTANT)) ): ?>
+                                        <li><?= anchor('legal_issues/index', trans('view_legal_issues')); ?></li>
                                     <?php endif; ?>
                                 <?php endif; ?>
-                                <?php if ( in_array($this->session->userdata('user_type'), array(TYPE_ADMIN, TYPE_ACCOUNTANT)) ): ?>
-                                    <li><?= anchor('legal_issues/index', trans('view_legal_issues')); ?></li>
-                                <?php endif; ?>
-
 
 
                             </ul>
@@ -263,20 +323,22 @@
                                 <i class="visible-md-inline fa fa-check-square-o"></i>
                             </a>
                             <ul class="dropdown-menu">
-                           
-                                <li><?= anchor('notes/form', trans('create_note')); ?></li>
-                                <li><?= anchor('notes/index', trans('show_notes')); ?></li>
 
+                                <?php if ( $statuses[20]['part_status'] == 'checked' ) : ?>
+                                    <li><?= anchor('notes/form', trans('create_note')); ?></li>
+                                    <li><?= anchor('notes/index', trans('show_notes')); ?></li>
+                                <?php endif;?>
 
                                 <?php if( !in_array($this->session->userdata('user_type'), array(TYPE_FREELANCERS)) ): ?>
                                     <!-- Menu view Projects -->
                                     <?php if( in_array($this->session->userdata('user_type'), array(TYPE_ADMIN, TYPE_ADMINISTRATOR, TYPE_MANAGERS)) ): ?>
-                                        <li><hr></li>
+                                        <?php if ( $statuses[21]['part_status'] == 'checked' ) : ?>
+                                     <li><hr></li>
                                         <?php if( !in_array($this->session->userdata('user_type'), array(TYPE_MANAGERS)) ): ?>
-                                            <li><?=anchor('website_access/form', trans('create_website_access')); ?></li>
+                                                <li><?=anchor('website_access/form', trans('create_website_access')); ?></li>
                                         <?php endif;?>
                                         <li><?= anchor('website_access/index', trans('website_access')); ?></li>
-
+                                    <?php endif;?>
 
                                         <?php if ($this->session->userdata('user_type') != TYPE_ADMINISTRATOR):  ?>
                                             <li><hr></li>
@@ -285,7 +347,7 @@
                                         <?php endif;?>
                                     <?php endif;?>
 
-                                    
+
 
                                     <?php if($this->session->userdata('user_type') != TYPE_ADMINISTRATOR): ?>
                                         <li><hr></li>
@@ -303,7 +365,7 @@
                                 <?php endif;?>
                                 <li><?= anchor('todo_tickets/status/all', trans('todo_tickets')); ?></li>
 
-                    
+
                             </ul>
                         </li>
                     <?php endif; ?>
@@ -341,18 +403,31 @@
                                 <i class="visible-md-inline fa fa-credit-card"></i>
                             </a>
                             <ul class="dropdown-menu">
+                                <?php if ( $statuses[22]['part_status'] == 'checked' ) : ?>
+                                    <li><?= anchor('expertises/index', trans('expertise_list')); ?></li>
+                                    <?php if ($this->session->userdata('user_type') == TYPE_ADMIN || $this->session->userdata('user_type') == TYPE_MANAGERS || $this->session->userdata('user_type') == TYPE_ADMINISTRATOR) { ?>
+                                        <li><?= anchor('expertises_company/index', trans('expertises_company')); ?></li>
+                                    <?php }  ?>
+                                <?php endif;?>
 
-                                <li><?= anchor('expertises/index', trans('expertise_list')); ?></li>
-
-                                <?php if ($this->session->userdata('user_type') == TYPE_ADMIN || $this->session->userdata('user_type') == TYPE_MANAGERS || $this->session->userdata('user_type') == TYPE_ADMINISTRATOR) { ?>
-                                    <li><?= anchor('expertises_company/index', trans('expertises_company')); ?></li>
-                                <?php }  ?>
                                 <?php if ($this->session->userdata('user_type') == TYPE_ADMIN) { ?>
-                                    <li><?= anchor('hr/freelancers', trans('freelancers')); ?></li>
-                                    <li><?= anchor('hr/influencers', trans('Influencers')); ?></li>
-                                    <li><?= anchor('hr/employees', trans('employees')); ?></li>
-                                    <li><?= anchor('hr/managers', trans('managers')); ?></li>
-                                    <li><?= anchor('hr/other_users', trans('other_users')); ?></li>
+                                    <?php if ( $statuses[23]['part_status'] == 'checked' ) : ?>
+                                        <li><?= anchor('hr/freelancers', trans('freelancers')); ?></li>
+                                    <?php endif;?>
+                                    <?php if ( $statuses[24]['part_status'] == 'checked' ) : ?>
+                                        <li><?= anchor('hr/influencers', trans('Influencers')); ?></li>
+                                    <?php endif;?>
+                                    <?php if ( $statuses[25]['part_status'] == 'checked' ) : ?>
+                                        <li><?= anchor('hr/employees', trans('employees')); ?></li>
+                                    <?php endif;?>
+                                    <?php if ( $statuses[26]['part_status'] == 'checked' ) : ?>
+                                        <li><?= anchor('hr/managers', trans('managers')); ?></li>
+                                    <?php endif;?>
+                                    <?php if ( $statuses[27]['part_status'] == 'checked' ) : ?>
+                                        <li><?= anchor('hr/other_users', trans('other_users')); ?></li>
+                                    <?php endif;?>
+
+
                                 <?php }  ?>
 
 

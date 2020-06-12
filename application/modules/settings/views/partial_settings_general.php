@@ -6,10 +6,14 @@
             });
         });
     });
+
 </script>
 
 <div class="col-xs-12 col-md-8 col-md-offset-2">
-
+<!--    --><?php //var_dump($status[28]);die; ?>
+<!--    --><?php //foreach ($status as $s) { ?>
+<!---->
+<!--    --><?php //} ?>
     <div class="panel panel-default">
         <div class="panel-heading">
             <?php _trans('general'); ?>
@@ -110,6 +114,134 @@
         </div>
     </div>
 
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <?php _trans('Certain Parts'); ?>
+        </div>
+        <div class="panel-body">
+
+            <div class="row">
+                <div class="col-xs-12 col-md-2">
+                    <label style="font-weight: bold">Apps</label>
+                    <div class="form-group">
+
+                        <input type="checkbox" id="set[checkItem]" name="set[Create_appointments]" value="Create appointments"
+                            <?php if($status[0]['part_status'] === 'checked') echo 'checked="checked"';?>
+                        >Appointments<br>
+                        <input type="checkbox" id="set[checkItem]" name="set[Showcalendar]" value="Show calendar"
+                            <?php if($status[1]['part_status'] === 'checked') echo 'checked="checked"';?>>Show calendar<br>
+                        <input type="checkbox" id="set[checkItem]" name="set[Show_map]" value="Show map"
+                            <?php if($status[2]['part_status'] === 'checked') echo 'checked="checked"';?>>Show map<br>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" id="set[checkItem]" name="set[Staywaykey]" value="Staywaykey"
+                            <?php if($status[3]['part_status'] === 'checked') echo 'checked="checked"';?>>Staywaykey<br>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" id="set[checkItem]" name="set[Web_shop]" value="Webshop/Inventory"
+                            <?php if($status[4]['part_status'] === 'checked') echo 'checked="checked"';?>>Webshop/Inventory<br>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-3">
+                    <label style="font-weight: bold">Finance</label>
+                    <div class="form-group">
+                        <input type="checkbox" id="set[checkItem]" name="set[Bank_statements]" value="Bank statements"
+                            <?php if($status[5]['part_status'] === 'checked') echo 'checked="checked"';?>>Bank statements<br>
+
+                    </div>
+                    <div class="form-group">
+
+                        <input type="checkbox" id="set[checkItem]" name="set[View_upfront_payments]" value="View upfront payments"
+                            <?php if($status[6]['part_status'] === 'checked') echo 'checked="checked"';?>>View/Add upfront payments<br>
+
+                    </div>
+                    <div class="form-group">
+
+                        <input type="checkbox" id="set[checkItem]" name="set[Financial_reports]" value="Financial reports"
+                            <?php if($status[7]['part_status'] === 'checked') echo 'checked="checked"';?>>Financial reports<br>
+                        <input type="checkbox" id="set[checkItem]" name="set[Show_company_savings]" value="Show company savings"
+                            <?php if($status[31]['part_status'] === 'checked') echo 'checked="checked"';?>>Show company savings<br>
+                    </div>
+
+                    <div class="form-group">
+
+                        <input type="checkbox" id="set[checkItem]" name="set[financial_agreement]" value="Financial agreements"
+                            <?php if($status[28]['part_status'] === 'checked') echo 'checked="checked"';?>>Add/View financial agreements<br>
+                    </div>
+                    <div class="form-group">
+
+                        <input type="checkbox" id="set[checkItem]" name="set[Add_subscriptions]" value="Subscriptions"
+                            <?php if($status[29]['part_status'] === 'checked') echo 'checked="checked"';?>>Add/View subscriptions<br>
+                        <input type="checkbox" id="set[checkItem]" name="set[View_expenses]" value="View expenses"
+                            <?php if($status[30]['part_status'] === 'checked') echo 'checked="checked"';?> >Add/View expenses<br>
+                    </div>
+                    <div class="form-group">
+                        <label style="font-weight: bolder" > Taxes</label><br>
+                        <input type="checkbox" id="set[checkItem]" name="set[United_States]" value="United States" <?php if($status[8]['part_status'] === 'checked') echo 'checked="checked"';?>>United States<br>
+                        <input type="checkbox" id="set[checkItem]" name="set[Germany]" value="Germany" <?php if($status[9]['part_status'] === 'checked') echo 'checked="checked"';?>>Germany<br>
+                        <input type="checkbox" id="set[checkItem]" name="set[France]" value="France"<?php if($status[10]['part_status'] === 'checked') echo 'checked="checked"';?>>France<br>
+                        <input type="checkbox" id="set[checkItem]" name="set[Netherlands]" value="The Netherlands"<?php if($status[11]['part_status'] === 'checked') echo 'checked="checked"';?>>The Netherlands<br>
+                        <input type="checkbox" id="set[checkItem]" name="set[Belgium]" value="Belgium" <?php if($status[12]['part_status'] === 'checked') echo 'checked="checked"';?>>Belgium<br>
+                        <input type="checkbox" id="set[checkItem]" name="set[Poland]" value="Poland" <?php if($status[13]['part_status'] === 'checked') echo 'checked="checked"';?>>Poland<br>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-2">
+                    <label style="font-weight: bold">Sales</label>
+                    <div class="form-group">
+
+                        <input type="checkbox" id="set[checkItem]" name="set[Add_client]" value="Add client" <?php if($status[14]['part_status'] === 'checked') echo 'checked="checked"';?>>Add/View client<br>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" id="set[checkItem]" name="set[Sales_by_client]" value="Sales by client" <?php if($status[15]['part_status'] === 'checked') echo 'checked="checked"';?>>Sales by client<br>
+                        <input type="checkbox" id="set[checkItem]" name="set[Sales_by_date]" value="Sales by date"<?php if($status[16]['part_status'] === 'checked') echo 'checked="checked"';?>>Sales by date<br>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" id="set[checkItem]" name="set[Add_prospect]" value="Add prospect" <?php if($status[32]['part_status'] === 'checked') echo 'checked="checked"';?>>Add/View prospects<br>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" id="set[checkItem]" name="set[Add_distributor]" value="Add distributor" <?php if($status[17]['part_status'] === 'checked') echo 'checked="checked"';?>>Add/View distributor<br>
+
+                    </div>
+                    <div class="form-group">
+
+                        <input type="checkbox" id="set[checkItem]" name="set[Add_supplier]" value="Add supplier"<?php if($status[18]['part_status'] === 'checked') echo 'checked="checked"';?>>Add/View suppliers <br>
+
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" id="set[checkItem]" name="set[Enter_legal_issues]" value="Enter legal issues" <?php if($status[19]['part_status'] === 'checked') echo 'checked="checked"';?>>Enter/View legal issues<br>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-3">
+                    <label style="font-weight: bold">Projects</label>
+                    <div class="form-group">
+
+                        <input type="checkbox" id="set[checkItem]" name="set[Create_note]" value="Create note"<?php if($status[20]['part_status'] === 'checked') echo 'checked="checked"';?> >Create/Show notes<br>
+
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" id="set[checkItem]" name="set[Add_domain_name]" value="Add domain name" <?php if($status[21]['part_status'] === 'checked') echo 'checked="checked"';?>>Add/View domain names<br>
+
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-2">
+                    <label style="font-weight: bold">Resources</label>
+                    <div class="form-group">
+
+                        <input type="checkbox" id="set[checkItem]" name="set[Expertises_list]" value="Expertises list" <?php if($status[22]['part_status'] === 'checked') echo 'checked="checked"';?>>Expertises <br>
+                    </div>
+
+                    <div class="form-group">
+                        <labeel></labeel><br>
+                        <input type="checkbox" id="set[checkItem]" name="set[Freelancers]" value="Freelancers" <?php if($status[23]['part_status'] === 'checked') echo 'checked="checked"';?>>Freelancers<br>
+                        <input type="checkbox" id="set[checkItem]" name="set[Influencers]" value="Influencers"<?php if($status[24]['part_status'] === 'checked') echo 'checked="checked"';?> >Influencers<br>
+                        <input type="checkbox" id="set[checkItem]" name="set[Employees]" value="Employees"<?php if($status[25]['part_status'] === 'checked') echo 'checked="checked"';?>>Employees<br>
+                        <input type="checkbox" id="set[checkItem]" name="set[Managers]" value="Managers"<?php if($status[26]['part_status'] === 'checked') echo 'checked="checked"';?>>Managers<br>
+                        <input type="checkbox" id="set[checkItem]" name="set[Administrators]" value="Administrators" <?php if($status[27]['part_status'] === 'checked') echo 'checked="checked"';?>>Administrators<br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="panel panel-default">
         <div class="panel-heading">

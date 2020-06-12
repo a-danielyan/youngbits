@@ -71,7 +71,7 @@
             <div class="col-lg-2  hidden-search-md mt-4 filter_div">
                 <form class="navbar-form navbar-left m-0" role="search" onsubmit="return false;">
                     <div class="form-group">
-                        <input id="filter" type="text" class="search-query form-control input-sm" placeholder="<?= $filter_placeholder; ?>">
+                        <input id="filter" type="text" class="search-query form-control input-sm filter" placeholder="<?= $filter_placeholder; ?>">
                     </div>
                 </form>
                 <div class="clearfix"></div>

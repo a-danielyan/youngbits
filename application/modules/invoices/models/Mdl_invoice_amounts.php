@@ -68,11 +68,16 @@ class Mdl_Invoice_Amounts extends CI_Model
         $this->db->from('ip_invoice_currency');
         $this->db->where('invoice_id', $invoice_id);
         $rate = $this->db->get()->result();
-
+        if (empty($rate)){
+            $rate = 1;
+        }
+        else{
+            $rate = $rate[0]->currency_rate;
+        }
         $invoice_paid = $query->row()->invoice_paid ? floatval($query->row()->invoice_paid) : 0;
 //        var_dump($invoice_paid);die;
         // Create the database array and insert or update
-        $invoice_paid = $invoice_paid * $rate[0]->currency_rate;
+        $invoice_paid = $invoice_paid * $rate;
         $invoice_balance = $invoice_total - $invoice_paid;
         $db_array = array(
             'invoice_id' => $invoice_id,

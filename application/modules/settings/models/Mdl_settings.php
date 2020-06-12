@@ -23,6 +23,8 @@ class Mdl_Settings extends CI_Model
      */
     public function save($key, $value)
     {
+        $set= $this->input->post('set');
+//        var_dump($set);die;
         $db_array = array(
             'setting_key' => $key,
             'setting_value' => $value,
@@ -34,6 +36,31 @@ class Mdl_Settings extends CI_Model
         } else {
             $this->db->insert('ip_settings', $db_array);
         }
+        $this->db->update('ip_certains_part_spudu', [
+            'part_status' => 'unchecked',
+        ]);
+        if($set !== null){
+            foreach ($set  as  $s ) {
+
+                $this->db->where('part_name', $s);
+                $this->db->update('ip_certains_part_spudu', [
+                    'part_status' => 'checked',
+                ]);
+            }
+        }elseif ($set == null){
+            $this->db->update('ip_certains_part_spudu', [
+                'part_status' => 'unchecked',
+            ]);
+        }
+
+
+
+    }
+    public  function  CertainPart(){
+
+        $status = $this->db->get('ip_certains_part_spudu')->result_array();
+        $this->session->set_userdata("statuses", $status);
+        return $status;
     }
 
     /**
@@ -52,7 +79,14 @@ class Mdl_Settings extends CI_Model
             return null;
         }
     }
+    public function CertainParts($set)
+    {
+        $this->db->select('part_status');
+        $query = $this->db->get('ip_certains_part_spudu');
+    var_dump($set);
 
+
+    }
     /**
      * @param $key
      */
