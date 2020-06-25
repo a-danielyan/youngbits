@@ -1,6 +1,6 @@
 
 <div class="col header_welcome_img_block">
-    <img src=' <?=($login_quote && $login_quote->quote_document_link)? $login_quote->quote_document_link:base_url('/uploads/quotes/default.png');?>'/>
+    <img style="width: 100%;" src=' <?=($login_quote && $login_quote->quote_document_link)? $login_quote->quote_document_link:base_url('/uploads/quotes/default.png');?>'/>
     <div class="container-fluid">
         <div class="col-md-5 header_welcome_inf">
             <h1>Welcome <?=$this->session->userdata('user_name')?></h1>

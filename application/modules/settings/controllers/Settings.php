@@ -29,6 +29,7 @@ class Settings extends Admin_Controller
 
     public function index()
     {
+
         // Get the payment gateway configurations
         $this->config->load('payment_gateways');
         $gateways = $this->config->item('payment_gateways');
@@ -36,6 +37,7 @@ class Settings extends Admin_Controller
         // Save input if request is POSt
         if ($this->input->post('settings')) {
             $settings = $this->input->post('settings');
+
             // Only execute if the setting is different
 
             if ($settings['tax_rate_decimal_places'] != get_setting('tax_rate_decimal_places')) {
@@ -72,6 +74,12 @@ class Settings extends Admin_Controller
 
                 }
             }
+            $st = $this->mdl_settings->GetStatus();
+            $template = $settings['template'];
+            $this->mdl_settings->MakeTemplate($st, $template);
+            $mytemp = $settings['mytemplate'];
+            $mytemp = $this->mdl_settings->SelectTemplate($mytemp);
+//            $mytemp = $this->session->userdata('mytemp');
 
             $upload_config = array(
                 'upload_path' => './uploads/',
@@ -162,8 +170,26 @@ class Settings extends Admin_Controller
 
         // Get all themes
         $available_themes = $this->mdl_settings->get_themes();
+        $mytemplate = $this->session->userdata('mytemp');
+        if ($mytemplate){
+            $this->mdl_settings->updateCertainParts($mytemplate);
+
+        }
         $status = $this->mdl_settings->CertainPart();
-//        $this->session->set_userdata("statuses", $status);
+//        $mytemplate = $mytemplate[0]['template_name'];
+//        $temp = $mytemplate;
+//        var_dump($mytemplate);die;
+//        if ($mytemplate){
+//
+////            $myselectedtemplate =
+//        }
+
+        $temp = $this->mdl_settings->Template();
+//        var_dump($temp);
+        if (empty($temp)){
+            $temp = null;
+        }
+//        var_dump($temp);die;
         // Get the current version
         $current_version = $this->mdl_versions->limit(1)->where('version_sql_errors', 0)->get()->row()->version_file;
         $current_version = str_replace('.sql', '', substr($current_version, strpos($current_version, '_') + 1));
@@ -184,6 +210,8 @@ class Settings extends Admin_Controller
                 'countries' => get_country_list(trans('cldr')),
                 'date_formats' => date_formats(),
                 'current_date' => new DateTime(),
+                'templates' => $temp,
+                'selected' => $mytemplate,
                 'available_themes' => $available_themes,
                 'email_templates_quote' => $this->mdl_email_templates->where('email_template_type', 'quote')->get()->result(),
                 'email_templates_invoice' => $this->mdl_email_templates->where('email_template_type', 'invoice')->get()->result(),
@@ -214,5 +242,17 @@ class Settings extends Admin_Controller
         $this->session->set_flashdata('alert_success', lang($type . '_logo_removed'));
 
         redirect('settings');
+    }
+    public function additem()
+    {  $item_name= $this->input->post('item_name');
+        $group_name= $this->input->post('group_name');
+        $this->mdl_settings->addPartItem($item_name,$group_name);
+
+    }
+    public function addapi()
+    {  $item_name= $this->input->post('api_name');
+        $group_name= $this->input->post('group_name');
+        $this->mdl_settings->addPartItem($item_name,$group_name);
+
     }
 }

@@ -23,8 +23,9 @@ class Mdl_Settings extends CI_Model
      */
     public function save($key, $value)
     {
-        $set= $this->input->post('set');
-//        var_dump($set);die;
+        $set = $this->input->post('set');
+        $s = $this->input->post("settings");
+
         $db_array = array(
             'setting_key' => $key,
             'setting_value' => $value,
@@ -39,28 +40,90 @@ class Mdl_Settings extends CI_Model
         $this->db->update('ip_certains_part_spudu', [
             'part_status' => 'unchecked',
         ]);
-        if($set !== null){
-            foreach ($set  as  $s ) {
+        if ($set !== null) {
+            foreach ($set as $s) {
 
                 $this->db->where('part_name', $s);
                 $this->db->update('ip_certains_part_spudu', [
                     'part_status' => 'checked',
                 ]);
             }
-        }elseif ($set == null){
+        } elseif ($set == null) {
             $this->db->update('ip_certains_part_spudu', [
                 'part_status' => 'unchecked',
             ]);
         }
 
-
-
     }
-    public  function  CertainPart(){
+
+    public function CertainPart()
+    {
+
 
         $status = $this->db->get('ip_certains_part_spudu')->result_array();
         $this->session->set_userdata("statuses", $status);
         return $status;
+    }
+
+    public function GetStatus()
+    {
+        $this->db->select('*');
+        $this->db->from('ip_certains_part_spudu');
+        $status = $this->db->get()->result_array();
+        return $status;
+    }
+    public function SelectTemplate($mytemplate)
+    {
+        $this->db->select('*');
+        $this->db->from('ip_menu_parts_template');
+        $this->db->where('template_name',$mytemplate);
+        $mytemp = $this->db->get()->result_array();
+        $this->session->set_userdata("mytemp", $mytemp);
+//        var_dump($mytemp);die;
+        return $mytemp;
+    }
+    public function MakeTemplate($st, $template)
+    {
+
+        if ($template !== '') {
+
+            $status = json_encode($st);
+            $this->db->insert('ip_menu_parts_template', [
+                'template_name' => $template,
+                'template_data' => $status
+
+            ]);
+            $this->session->set_userdata("templates", [
+                'template_name' => $template,
+                'template_data' => $status
+
+            ]);
+        }
+
+    }
+    public function updateCertainParts($mytemplate)
+    {
+        $mytemplate = json_decode($mytemplate[0]['template_data']);
+        foreach ($mytemplate as $temp) {
+
+//            echo '<pre>';
+//            var_dump($temp->id);die;
+            $db_array =[
+                'part_status' => $temp->part_status,
+            ];
+            $this->db->where('part_name', $temp->part_name);
+            $this->db->update('ip_certains_part_spudu',$db_array);
+
+        }
+    }
+    public function Template($mytemplate =null)
+    {
+
+        $this->db->select('*');
+        $this->db->from('ip_menu_parts_template');
+        $template = $this->db->get()->result_array();
+
+        return $template;
     }
 
     /**
@@ -79,14 +142,14 @@ class Mdl_Settings extends CI_Model
             return null;
         }
     }
+
     public function CertainParts($set)
     {
         $this->db->select('part_status');
         $query = $this->db->get('ip_certains_part_spudu');
-    var_dump($set);
-
 
     }
+
     /**
      * @param $key
      */
@@ -164,4 +227,13 @@ class Mdl_Settings extends CI_Model
 
         return $themes;
     }
+
+    public  function  addPartItem($item_name, $group_name){
+        $this->db->insert('ip_certains_part_spudu', [
+            'part_name' => $item_name,
+            'group_name' => $group_name
+
+        ]);
+    }
+
 }

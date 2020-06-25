@@ -5,21 +5,240 @@
                 $('#cron_key').val(data);
             });
         });
+        $('.taxes_item').click(function () {
+
+            $('.tax_input').css("display", "block");
+            $('.tax_input').one('keypress', function (e) {
+                if(e.which === 13){
+
+                    var item_name = $('.tax_input').val();
+                    var new_input = "<input type='checkbox'  name='' value='' >"+item_name+"<br>";
+                    $('.new_tax_item').append(new_input);
+                    $.ajax({
+                        method: 'post',
+                        url:'settings/additem',
+                        data:{
+                            item_name : item_name,
+                            group_name: 'taxes'
+
+                        },
+                        dataType: 'json',
+                        success :function(data){
+                            alert(data);
+
+                        }
+                    })
+                    $('.tax_input').css("display", "none");
+                }
+            });
+
+        });
+        $('.api_item').click(function () {
+
+            $('.api_input').css("display", "block");
+            $('.api_input').one('keypress', function (e) {
+                if(e.which === 13){
+
+                    var api_name = $('.api_input').val();
+                    var new_input = "<input type='checkbox'  name='' value='' >"+api_name+"<br>";
+                    $('.new_api_item').append(new_input);
+                    $.ajax({
+                        method: 'post',
+                        url:'settings/addapi',
+                        data:{
+                            api_name : api_name,
+                            group_name: 'api'
+
+                        },
+                        dataType: 'json',
+                        success :function(data){
+                            alert(data);
+
+                        }
+                    })
+                    $('.api_input').css("display", "none");
+
+                }
+            });
+
+        });
+        $('.sales_item').click(function () {
+
+            $('.sales_input').css("display", "block");
+            $('.sales_input').one('keypress', function (e) {
+                if(e.which === 13){
+
+                    var item_name = $('.sales_input').val();
+                    var new_input = "<input type='checkbox'  name='' value='' >"+item_name+"<br>";
+                    $('.new_sales_item').append(new_input);
+                    $.ajax({
+                        method: 'post',
+                        url:'settings/additem',
+                        data:{
+                            item_name : item_name,
+                            group_name: 'sales'
+
+                        },
+                        dataType: 'json',
+                        success :function(data){
+                            alert(data);
+
+                        }
+                    })
+                    $('.sales_input').css("display", "none");
+                }
+            });
+
+        });
+        $('.project_item').click(function () {
+
+            $('.project_input').css("display", "block");
+            $('.project_input').one('keypress', function (e) {
+                if(e.which === 13){
+
+                    var item_name = $('.project_input').val();
+                    var new_input = "<input type='checkbox'  name='' value='' >"+item_name+"<br>";
+                    $('.new_project_item').append(new_input);
+                    $.ajax({
+                        method: 'post',
+                        url:'settings/additem',
+                        data:{
+                            item_name : item_name,
+                            group_name: 'project'
+
+                        },
+                        dataType: 'json',
+                        success :function(data){
+                            alert(data);
+
+                        }
+                    })
+                    $('.project_input').css("display", "none");
+                }
+            });
+
+        });
+        $('.resource_item').click(function () {
+
+            $('.resource_input').css("display", "block");
+            $('.resource_input').one('keypress', function (e) {
+                if(e.which === 13){
+
+                    var item_name = $('.resource_input').val();
+                    var new_input = "<input type='checkbox'  name='' value='' >"+item_name+"<br>";
+                    $('.new_resource_item').append(new_input);
+                    $.ajax({
+                        method: 'post',
+                        url:'settings/additem',
+                        data:{
+                            item_name : item_name,
+                            group_name: 'resource'
+
+                        },
+                        dataType: 'json',
+                        success :function(data){
+                            alert(data);
+
+                        }
+                    })
+                    $('.resource_input').css("display", "none");
+                }
+            });
+
+        });
+        $('.finance_item').click(function () {
+
+            $('.finance_input').css("display", "block");
+            $('.finance_input').one('keypress', function (e) {
+                if(e.which === 13){
+
+                    var item_name = $('.finance_input').val();
+                    var new_input = "<input type='checkbox'  name='' value='' >"+item_name+"<br>";
+                    $('.new_finance_item').append(new_input);
+                    $.ajax({
+                        method: 'post',
+                        url:'settings/additem',
+                        data:{
+                            item_name : item_name,
+                            group_name: 'finance'
+
+                        },
+                        dataType: 'json',
+                        success :function(data){
+                            alert(data);
+
+                        }
+                    })
+                    $('.finance_input').css("display", "none");
+                }
+            });
+
+        });
+        $('.app_item').click(function () {
+
+            $('.app_input').css("display", "block");
+            $('.app_input').one('keypress', function (e) {
+                if(e.which === 13){
+
+                    var item_name = $('.app_input').val();
+                    var new_input = "<input type='checkbox' name='' value='' >"+item_name+"<br>";
+                    $('.new_app_item').append(new_input);
+                    $.ajax({
+                        method: 'post',
+                        url:'settings/additem',
+                        data:{
+                            item_name : item_name,
+                            group_name: 'app'
+
+                        },
+                        dataType: 'json',
+                        success :function(data){
+                            alert(data);
+
+
+                        }
+                    })
+                    $('.app_input').css("display", "none");
+                }
+            });
+
+        });
+
+
     });
 
 </script>
 
 <div class="col-xs-12 col-md-8 col-md-offset-2">
-<!--    --><?php //var_dump($status[28]);die; ?>
-<!--    --><?php //foreach ($status as $s) { ?>
-<!---->
-<!--    --><?php //} ?>
+    <?php
+    $template = $this->session->userdata('templates');
+    $template = $template['template_name'];
+    $mytemplate = $this->session->userdata('mytemp');
+//    var_dump($mytemplate);
+    if (empty($mytemplate)){
+
+        $s = $template;
+
+    }
+    else{
+        $s = $selected[0]['template_name'];
+    }
+    if($this->session->userdata('templates')){
+        $template = $this->session->userdata('templates');
+        $template = $template['template_name'];
+    }
+   else{
+       $template['template_name'] = 'No Template';
+       $template = $template['template_name'];
+   }
+
+    ?>
+
     <div class="panel panel-default">
         <div class="panel-heading">
             <?php _trans('general'); ?>
         </div>
         <div class="panel-body">
-
             <div class="row">
                 <div class="col-xs-12 col-md-6">
                     <div class="form-group">
@@ -116,8 +335,44 @@
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            <?php _trans('Certain Parts'); ?>
+            <?php _trans('Templates'); ?>
         </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <div class="form-group">
+                        <label for="settings[mytemplate]">
+                            <?php _trans('Select Template'); ?>
+                        </label>
+                        <select name="settings[mytemplate]" id="settings[mytemplate]"
+                                class="form-control simple-select">
+                            <option value="<?php echo $s ?>"><?php echo $s ?></option>
+                            <?php if ($templates != null){ ?>
+                            <?php foreach ($templates as $temp) {
+                                $my_temp = $template['template_name'];
+                                ?>
+
+                                <option value="<?php echo $temp['template_name']; ?>" >
+                                    <?php echo ucfirst($temp['template_name']); ?>
+                                </option>
+                            <?php } ?>
+                            <?php }?>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <div class="form-group">
+                        <label for="settings[template]">
+                            <?php _trans('Create Template'); ?>
+                        </label>
+                        <input type="text" name="settings[template]" id="settings[template]"
+                               class="form-control"
+                               value="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="panel-body">
 
             <div class="row">
@@ -125,119 +380,224 @@
                     <label style="font-weight: bold">Apps</label>
                     <div class="form-group">
 
-                        <input type="checkbox" id="set[checkItem]" name="set[Create_appointments]" value="Create appointments"
+                        <input type="checkbox"  name="set[Create_appointments]" value="Create appointments"
                             <?php if($status[0]['part_status'] === 'checked') echo 'checked="checked"';?>
                         >Appointments<br>
-                        <input type="checkbox" id="set[checkItem]" name="set[Showcalendar]" value="Show calendar"
+                        <input type="checkbox"  name="set[Showcalendar]" value="Show calendar"
                             <?php if($status[1]['part_status'] === 'checked') echo 'checked="checked"';?>>Show calendar<br>
-                        <input type="checkbox" id="set[checkItem]" name="set[Show_map]" value="Show map"
+                        <input type="checkbox" name="set[Show_map]" value="Show map"
                             <?php if($status[2]['part_status'] === 'checked') echo 'checked="checked"';?>>Show map<br>
                     </div>
                     <div class="form-group">
-                        <input type="checkbox" id="set[checkItem]" name="set[Staywaykey]" value="Staywaykey"
+                        <input type="checkbox"  name="set[Staywaykey]" value="Staywaykey"
                             <?php if($status[3]['part_status'] === 'checked') echo 'checked="checked"';?>>Staywaykey<br>
                     </div>
                     <div class="form-group">
-                        <input type="checkbox" id="set[checkItem]" name="set[Web_shop]" value="Webshop/Inventory"
+                        <input type="checkbox"  name="set[Web_shop]" value="Webshop/Inventory"
                             <?php if($status[4]['part_status'] === 'checked') echo 'checked="checked"';?>>Webshop/Inventory<br>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox"  name="set[Touristdoc]" value="Touristdoc"
+                            <?php if($status[33]['part_status'] === 'checked') echo 'checked="checked"';?>>Touristdoc<br>
+                    </div>
+                    <div class="form-group">
+                        <?php foreach ($status as $val ) {
+                            if ($val['group_name'] == 'app'){ ?>
+                                <input type="checkbox" id="set[<?php echo $val['part_name'] ?>]" name="set[set<?php echo $val['id'] ?>]" value="<?php echo $val['part_name'] ?>" <?php if($val['part_status'] === 'checked') echo 'checked="checked"';?>><?php echo $val['part_name'] ?> <br>
+
+                            <?php }
+                        } ?>
+                        <div class="new_app_item"></div>
+                        <input type="text" class="app_input" style="display: none"  name="" value="Item Name" ><br>
+
+                        <a class="app_item btn btn-xs btn-primary" >
+                            <i class="fa fa-plus" style="color: white"></i> <?php _trans('new'); ?>
+                        </a><br>
+                    </div>
+                    <div class="form-group">
+                        <label style="font-weight: bolder" > Api</label><br>
+                        <?php foreach ($status as $val ) {
+                            if ($val['group_name'] == 'api'){ ?>
+                                <input type="checkbox" id="set[<?php echo $val['part_name'] ?>]" name="set[set<?php echo $val['id'] ?>]" value="<?php echo $val['part_name'] ?>" <?php if($val['part_status'] === 'checked') echo 'checked="checked"';?>><?php echo $val['part_name'] ?> <br>
+
+                            <?php }
+                        } ?>
+
+                        <div class="new_api_item"></div>
+                        <input type="text" class="api_input" style="display: none"  name="" value="Api Name" ><br>
+
+                        <a class="api_item btn btn-xs btn-primary" >
+                            <i class="fa fa-plus" style="color: white"></i> <?php _trans('new'); ?>
+                        </a>
                     </div>
                 </div>
                 <div class="col-xs-12 col-md-3">
                     <label style="font-weight: bold">Finance</label>
                     <div class="form-group">
-                        <input type="checkbox" id="set[checkItem]" name="set[Bank_statements]" value="Bank statements"
+                        <input type="checkbox"  name="set[Bank_statements]" value="Bank statements"
                             <?php if($status[5]['part_status'] === 'checked') echo 'checked="checked"';?>>Bank statements<br>
 
                     </div>
                     <div class="form-group">
 
-                        <input type="checkbox" id="set[checkItem]" name="set[View_upfront_payments]" value="View upfront payments"
+                        <input type="checkbox"  name="set[View_upfront_payments]" value="View upfront payments"
                             <?php if($status[6]['part_status'] === 'checked') echo 'checked="checked"';?>>View/Add upfront payments<br>
 
                     </div>
                     <div class="form-group">
 
-                        <input type="checkbox" id="set[checkItem]" name="set[Financial_reports]" value="Financial reports"
+                        <input type="checkbox" name="set[Financial_reports]" value="Financial reports"
                             <?php if($status[7]['part_status'] === 'checked') echo 'checked="checked"';?>>Financial reports<br>
-                        <input type="checkbox" id="set[checkItem]" name="set[Show_company_savings]" value="Show company savings"
+                        <input type="checkbox"  name="set[Show_company_savings]" value="Show company savings"
                             <?php if($status[31]['part_status'] === 'checked') echo 'checked="checked"';?>>Show company savings<br>
                     </div>
 
                     <div class="form-group">
 
-                        <input type="checkbox" id="set[checkItem]" name="set[financial_agreement]" value="Financial agreements"
+                        <input type="checkbox"  name="set[financial_agreement]" value="Financial agreements"
                             <?php if($status[28]['part_status'] === 'checked') echo 'checked="checked"';?>>Add/View financial agreements<br>
                     </div>
                     <div class="form-group">
 
-                        <input type="checkbox" id="set[checkItem]" name="set[Add_subscriptions]" value="Subscriptions"
+                        <input type="checkbox"  name="set[Add_subscriptions]" value="Subscriptions"
                             <?php if($status[29]['part_status'] === 'checked') echo 'checked="checked"';?>>Add/View subscriptions<br>
-                        <input type="checkbox" id="set[checkItem]" name="set[View_expenses]" value="View expenses"
+                        <input type="checkbox"  name="set[View_expenses]" value="View expenses"
                             <?php if($status[30]['part_status'] === 'checked') echo 'checked="checked"';?> >Add/View expenses<br>
                     </div>
                     <div class="form-group">
+                        <?php foreach ($status as $val ) {
+                            if ($val['group_name'] == 'finance'){ ?>
+                                <input type="checkbox" id="set[<?php echo $val['part_name'] ?>]" name="set[set<?php echo $val['id'] ?>]" value="<?php echo $val['part_name'] ?>" <?php if($val['part_status'] === 'checked') echo 'checked="checked"';?>><?php echo $val['part_name'] ?> <br>
+
+                            <?php }
+                        } ?>
+                        <div class="new_finance_item"></div>
+                        <input type="text" class="finance_input" style="display: none" name="" value="Item Name" ><br>
+
+                        <a class="finance_item btn btn-xs btn-primary" >
+                            <i class="fa fa-plus" style="color: white"></i> <?php _trans('new'); ?>
+                        </a>
+                    </div>
+                    <div class="form-group">
                         <label style="font-weight: bolder" > Taxes</label><br>
-                        <input type="checkbox" id="set[checkItem]" name="set[United_States]" value="United States" <?php if($status[8]['part_status'] === 'checked') echo 'checked="checked"';?>>United States<br>
-                        <input type="checkbox" id="set[checkItem]" name="set[Germany]" value="Germany" <?php if($status[9]['part_status'] === 'checked') echo 'checked="checked"';?>>Germany<br>
-                        <input type="checkbox" id="set[checkItem]" name="set[France]" value="France"<?php if($status[10]['part_status'] === 'checked') echo 'checked="checked"';?>>France<br>
-                        <input type="checkbox" id="set[checkItem]" name="set[Netherlands]" value="The Netherlands"<?php if($status[11]['part_status'] === 'checked') echo 'checked="checked"';?>>The Netherlands<br>
-                        <input type="checkbox" id="set[checkItem]" name="set[Belgium]" value="Belgium" <?php if($status[12]['part_status'] === 'checked') echo 'checked="checked"';?>>Belgium<br>
-                        <input type="checkbox" id="set[checkItem]" name="set[Poland]" value="Poland" <?php if($status[13]['part_status'] === 'checked') echo 'checked="checked"';?>>Poland<br>
+                        <?php foreach ($status as $val ) {
+                            if ($val['group_name'] == 'taxes'){ ?>
+                              <input type="checkbox" id="set[<?php echo $val['part_name'] ?>]" name="set[set<?php echo $val['id'] ?>]" value="<?php echo $val['part_name'] ?>" <?php if($val['part_status'] === 'checked') echo 'checked="checked"';?>><?php echo $val['part_name'] ?> <br>
+
+                            <?php }
+                        } ?>
+
+
+                       <div class="new_tax_item"></div>
+                        <input type="text" class="tax_input" style="display: none"  name="" value="Item Name" ><br>
+
+                        <a class="taxes_item btn btn-xs btn-primary">
+                            <i class="fa fa-plus" style="color: white"></i> <?php _trans('new'); ?>
+                        </a>
+
                     </div>
                 </div>
                 <div class="col-xs-12 col-md-2">
                     <label style="font-weight: bold">Sales</label>
                     <div class="form-group">
-
-                        <input type="checkbox" id="set[checkItem]" name="set[Add_client]" value="Add client" <?php if($status[14]['part_status'] === 'checked') echo 'checked="checked"';?>>Add/View client<br>
+                        <input type="checkbox"  name="set[Enter inventory]" value="Enter inventory" <?php if($status[72]['part_status'] === 'checked') echo 'checked="checked"';?>>Enter/View inventory<br>
                     </div>
                     <div class="form-group">
-                        <input type="checkbox" id="set[checkItem]" name="set[Sales_by_client]" value="Sales by client" <?php if($status[15]['part_status'] === 'checked') echo 'checked="checked"';?>>Sales by client<br>
-                        <input type="checkbox" id="set[checkItem]" name="set[Sales_by_date]" value="Sales by date"<?php if($status[16]['part_status'] === 'checked') echo 'checked="checked"';?>>Sales by date<br>
-                    </div>
-                    <div class="form-group">
-                        <input type="checkbox" id="set[checkItem]" name="set[Add_prospect]" value="Add prospect" <?php if($status[32]['part_status'] === 'checked') echo 'checked="checked"';?>>Add/View prospects<br>
-                    </div>
-                    <div class="form-group">
-                        <input type="checkbox" id="set[checkItem]" name="set[Add_distributor]" value="Add distributor" <?php if($status[17]['part_status'] === 'checked') echo 'checked="checked"';?>>Add/View distributor<br>
+                        <input type="checkbox"  name="set[Add_client]" value="Add client" <?php if($status[14]['part_status'] === 'checked') echo 'checked="checked"';?>>Add/View client<br>
 
                     </div>
                     <div class="form-group">
-
-                        <input type="checkbox" id="set[checkItem]" name="set[Add_supplier]" value="Add supplier"<?php if($status[18]['part_status'] === 'checked') echo 'checked="checked"';?>>Add/View suppliers <br>
+                        <input type="checkbox"  name="set[Sales_by_client]" value="Sales by client" <?php if($status[15]['part_status'] === 'checked') echo 'checked="checked"';?>>Sales by client<br>
+                        <input type="checkbox"  name="set[Sales_by_date]" value="Sales by date"<?php if($status[16]['part_status'] === 'checked') echo 'checked="checked"';?>>Sales by date<br>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox"  name="set[Add_prospect]" value="Add prospect" <?php if($status[32]['part_status'] === 'checked') echo 'checked="checked"';?>>Add/View prospects<br>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" name="set[Add_distributor]" value="Add distributor" <?php if($status[17]['part_status'] === 'checked') echo 'checked="checked"';?>>Add/View distributor<br>
 
                     </div>
                     <div class="form-group">
-                        <input type="checkbox" id="set[checkItem]" name="set[Enter_legal_issues]" value="Enter legal issues" <?php if($status[19]['part_status'] === 'checked') echo 'checked="checked"';?>>Enter/View legal issues<br>
+
+                        <input type="checkbox"  name="set[Add_supplier]" value="Add supplier"<?php if($status[18]['part_status'] === 'checked') echo 'checked="checked"';?>>Add/View suppliers <br>
+
                     </div>
+                    <div class="form-group">
+                        <input type="checkbox"  name="set[Enter_legal_issues]" value="Enter legal issues" <?php if($status[19]['part_status'] === 'checked') echo 'checked="checked"';?>>Enter/View legal issues<br>
+                    </div>
+                    <?php foreach ($status as $val ) {
+                        if ($val['group_name'] == 'sales'){ ?>
+                            <input type="checkbox" id="set[<?php echo $val['part_name'] ?>]" name="set[set<?php echo $val['id'] ?>]" value="<?php echo $val['part_name'] ?>" <?php if($val['part_status'] === 'checked') echo 'checked="checked"';?>><?php echo $val['part_name'] ?> <br>
+
+                        <?php }
+                    } ?>
+                    <div class="new_sales_item"></div>
+                    <input type="text" class="sales_input" style="display: none"  name="" value=" Sales Item" ><br>
+
+                    <a class="sales_item btn btn-xs btn-primary" >
+                        <i class="fa fa-plus" style="color: white"></i> <?php _trans('new'); ?>
+                    </a>
+
                 </div>
                 <div class="col-xs-12 col-md-3">
                     <label style="font-weight: bold">Projects</label>
                     <div class="form-group">
 
-                        <input type="checkbox" id="set[checkItem]" name="set[Create_note]" value="Create note"<?php if($status[20]['part_status'] === 'checked') echo 'checked="checked"';?> >Create/Show notes<br>
+                        <input type="checkbox"  name="set[Create_note]" value="Create note"<?php if($status[20]['part_status'] === 'checked') echo 'checked="checked"';?> >Create/Show notes<br>
 
                     </div>
                     <div class="form-group">
-                        <input type="checkbox" id="set[checkItem]" name="set[Add_domain_name]" value="Add domain name" <?php if($status[21]['part_status'] === 'checked') echo 'checked="checked"';?>>Add/View domain names<br>
+                        <input type="checkbox"  name="set[Add_domain_name]" value="Add domain name" <?php if($status[21]['part_status'] === 'checked') echo 'checked="checked"';?>>Add/View domain names<br>
 
                     </div>
+                    <?php foreach ($status as $val ) {
+                        if ($val['group_name'] == 'project'){ ?>
+                            <input type="checkbox" id="set[<?php echo $val['part_name'] ?>]" name="set[set<?php echo $val['id'] ?>]" value="<?php echo $val['part_name'] ?>" <?php if($val['part_status'] === 'checked') echo 'checked="checked"';?>><?php echo $val['part_name'] ?> <br>
+
+                        <?php }
+                    } ?>
+                    <div class="new_project_item"></div>
+                    <input type="text" class="project_input" style="display: none"  name="" value="Project Item" ><br>
+
+                    <a class="project_item btn btn-xs btn-primary" >
+                        <i class="fa fa-plus" style="color: white"></i> <?php _trans('new'); ?>
+                    </a>
                 </div>
                 <div class="col-xs-12 col-md-2">
                     <label style="font-weight: bold">Resources</label>
                     <div class="form-group">
 
-                        <input type="checkbox" id="set[checkItem]" name="set[Expertises_list]" value="Expertises list" <?php if($status[22]['part_status'] === 'checked') echo 'checked="checked"';?>>Expertises <br>
+                        <input type="checkbox"  name="set[Expertises_list]" value="Expertises list" <?php if($status[22]['part_status'] === 'checked') echo 'checked="checked"';?>>Expertises <br>
                     </div>
 
                     <div class="form-group">
                         <labeel></labeel><br>
-                        <input type="checkbox" id="set[checkItem]" name="set[Freelancers]" value="Freelancers" <?php if($status[23]['part_status'] === 'checked') echo 'checked="checked"';?>>Freelancers<br>
-                        <input type="checkbox" id="set[checkItem]" name="set[Influencers]" value="Influencers"<?php if($status[24]['part_status'] === 'checked') echo 'checked="checked"';?> >Influencers<br>
-                        <input type="checkbox" id="set[checkItem]" name="set[Employees]" value="Employees"<?php if($status[25]['part_status'] === 'checked') echo 'checked="checked"';?>>Employees<br>
-                        <input type="checkbox" id="set[checkItem]" name="set[Managers]" value="Managers"<?php if($status[26]['part_status'] === 'checked') echo 'checked="checked"';?>>Managers<br>
-                        <input type="checkbox" id="set[checkItem]" name="set[Administrators]" value="Administrators" <?php if($status[27]['part_status'] === 'checked') echo 'checked="checked"';?>>Administrators<br>
+                        <input type="checkbox"  name="set[Freelancers]" value="Freelancers" <?php if($status[23]['part_status'] === 'checked') echo 'checked="checked"';?>>Freelancers<br>
+                        <input type="checkbox" name="set[Influencers]" value="Influencers"<?php if($status[24]['part_status'] === 'checked') echo 'checked="checked"';?> >Influencers<br>
+                        <input type="checkbox"  name="set[Employees]" value="Employees"<?php if($status[25]['part_status'] === 'checked') echo 'checked="checked"';?>>Employees<br>
+                        <input type="checkbox"  name="set[Managers]" value="Managers"<?php if($status[26]['part_status'] === 'checked') echo 'checked="checked"';?>>Managers<br>
+                        <input type="checkbox"  name="set[Administrators]" value="Administrators" <?php if($status[27]['part_status'] === 'checked') echo 'checked="checked"';?>>Administrators<br>
                     </div>
+                    <div class="form-group">
+                        <labeel></labeel><br>
+                        <input type="checkbox"  name="set[Enter_study_program]" value="Enter study program" <?php if($status[73]['part_status'] === 'checked') echo 'checked="checked"';?>>Study program<br>
+                    </div>
+                    <div class="form-group">
+                        <labeel></labeel><br>
+                        <input type="checkbox"  name="set[Enter_students]" value="Enter students" <?php if($status[74]['part_status'] === 'checked') echo 'checked="checked"';?>>Enter/View students<br>
+                    </div>
+                    <?php foreach ($status as $val ) {
+                        if ($val['group_name'] == 'resource'){ ?>
+                            <input type="checkbox" id="set[<?php echo $val['part_name'] ?>]" name="set[set<?php echo $val['id'] ?>]" value="<?php echo $val['part_name'] ?>" <?php if($val['part_status'] === 'checked') echo 'checked="checked"';?>><?php echo $val['part_name'] ?> <br>
+
+                        <?php }
+                    } ?>
+                    <div class="new_resource_item"></div>
+                    <input type="text" class="resource_input" style="display: none"  name="" value="Resource Item" ><br>
+
+                    <a class="resource_item btn btn-xs btn-primary" >
+                        <i class="fa fa-plus" style="color: white"></i> <?php _trans('new'); ?>
+                    </a>
                 </div>
             </div>
         </div>
