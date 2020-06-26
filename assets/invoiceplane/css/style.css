@@ -10984,3 +10984,13 @@ body *:focus {
 .form-control, .panel, .details-box, #login {
     box-shadow: none
 }
+
+.readonly{
+    max-width: 80px !important;
+    padding: 8px !important;
+    color: white;
+    font-family: Montserrat-SemiBold;
+    font-size: 10px;
+    margin: 3px 3px 4px 0 !important;
+
+}

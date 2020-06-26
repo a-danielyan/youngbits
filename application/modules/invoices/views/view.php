@@ -264,7 +264,7 @@ if ($this->config->item('disable_read_only') == true) {
             <span class="label label-info"><?php _trans('recurring'); ?></span>
         <?php } ?>
         <?php if ($invoice->is_read_only == 1) { ?>
-            <span class="label label-danger">
+            <span class="label label-danger readonly">
                 <i class="fa fa-read-only"></i> <?php _trans('read_only'); ?>
             </span>
         <?php } ?>
