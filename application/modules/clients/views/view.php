@@ -96,6 +96,18 @@
 
                         <h3><?php _htmlsc(format_client($client)); ?></h3>
                         <p>
+                        <div style="display: flex">
+                            <?php if ($client->first_name_contact_person): ?>
+                                <div>
+                                    <?php _auto_link($client->first_name_contact_person); ?>
+                                </div>
+                            <?php endif; ?>&nbsp;
+                            <?php if ($client->surname_contact_person): ?>
+                                <div>
+                                    <?php _auto_link($client->surname_contact_person); ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
                             <?php
                             if ($this->session->userdata('user_type') == TYPE_ADMIN)
                             {
@@ -268,16 +280,16 @@
                                             <td><?php _htmlsc($client->client_name); ?></td>
                                         </tr>
                                     <?php endif; ?>
-                                    <?php if ($client->client_first_name) : ?>
+                                    <?php if ($client->first_name_contact_person) : ?>
                                         <tr>
                                             <th><?php _trans('first_name_contactperson'); ?></th>
-                                            <td><?php _htmlsc($client->client_first_name); ?></td>
+                                            <td><?php _htmlsc($client->first_name_contact_person); ?></td>
                                         </tr>
                                     <?php endif; ?>
-                                    <?php if ($client->client_surname) : ?>
+                                    <?php if ($client->surname_contact_person) : ?>
                                         <tr>
                                             <th><?php _trans('surname_contactperson'); ?></th>
-                                            <td><?php _htmlsc($client->client_surname); ?></td>
+                                            <td><?php _htmlsc($client->surname_contact_person); ?></td>
                                         </tr>
                                     <?php endif; ?>
                                     <tr>

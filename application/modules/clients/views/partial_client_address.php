@@ -8,7 +8,6 @@
 </span>
 <span class="client-adress-town-line">
     <?php echo($client->client_city ? htmlsc($client->client_city) . ' ' : ''); ?>
-    <?php echo($client->client_state ? htmlsc($client->client_state) . ' ' : ''); ?>
     <?php echo($client->client_zip ? htmlsc($client->client_zip) : ''); ?>
 </span>
 <span class="client-adress-country-line">

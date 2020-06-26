@@ -1,5 +1,6 @@
 <?php
 $cv = $this->controller->view_data["custom_values"];
+//var_dump($invoice);die;
 ?>
 
 <script>
@@ -165,6 +166,7 @@ $cv = $this->controller->view_data["custom_values"];
 </script>
 
 <?php
+//var_dump($invoice);die;
 echo $modal_delete_invoice;
 echo $modal_add_invoice_tax;
 if ($this->config->item('disable_read_only') == true) {
@@ -225,9 +227,9 @@ if ($this->config->item('disable_read_only') == true) {
                     </a>
                 </li>
                 <li class="divider"></li>
-                <li <?= (!empty($invoices_recurring))? "class='disabled'": ''; ?>>
+                <li <?= (!empty($invoices_recurring)) ? "class='disabled'" : ''; ?>>
                     <a href="#" id="btn_create_recurring"
-                       data-invoice-id="<?php echo $invoice_id; ?>" >
+                       data-invoice-id="<?php echo $invoice_id; ?>">
                         <i class="fa fa-repeat fa-margin"></i>
                         <?php _trans('create_recurring'); ?>
                     </a>
@@ -250,11 +252,11 @@ if ($this->config->item('disable_read_only') == true) {
             </ul>
         </div>
 
-<!--        --><?php //if ($invoice->is_read_only != 1 || $invoice->invoice_status_id != 4) { ?>
-            <a href="#" class="btn btn-sm btn-success ajax-loader" id="btn_save_invoice">
-                <i class="fa fa-check"></i> <?php _trans('save'); ?>
-            </a>
-<!--        --><?php //} ?>
+        <!--        --><?php //if ($invoice->is_read_only != 1 || $invoice->invoice_status_id != 4) { ?>
+        <a href="#" class="btn btn-sm btn-success ajax-loader" id="btn_save_invoice">
+            <i class="fa fa-check"></i> <?php _trans('save'); ?>
+        </a>
+        <!--        --><?php //} ?>
     </div>
 
     <div class="headerbar-item invoice-labels pull-right">
@@ -291,21 +293,45 @@ if ($this->config->item('disable_read_only') == true) {
                         <?php } ?>
                     </h3>
                     <br>
-                    <div class="client-address">
-                        <?php $this->layout->load_view('clients/partial_client_address', array('client' => $invoice)); ?>
+                    <div style="display: flex">
+                        <?php if ($invoice->first_name_contact_person): ?>
+                            <div>
+                                <?php _auto_link($invoice->first_name_contact_person); ?>
+                            </div>
+                        <?php endif; ?>&nbsp;
+                        <?php if ($invoice->surname_contact_person): ?>
+                            <div>
+                                <?php _auto_link($invoice->surname_contact_person); ?>
+                            </div>
+                        <?php endif; ?>
                     </div>
-                    <?php if ($invoice->client_phone || $invoice->client_email) : ?>
-                        <hr>
-                    <?php endif; ?>
-                    <?php if ($invoice->client_phone): ?>
+                    <?php if ($invoice->client_address_1): ?>
                         <div>
-                            <?php _trans('phone'); ?>:&nbsp;
-                            <?php _htmlsc($invoice->client_phone); ?>
+                            <?php _auto_link($invoice->client_address_1); ?>
+                        </div>
+                    <?php endif; ?>
+<!--                    <div class="client-address">-->
+<!--                        --><?php //$this->layout->load_view('clients/partial_client_address', array('client' => $invoice)); ?>
+<!--                    </div>-->
+                    <div style="display: flex">
+                        <?php if ($invoice->client_zip): ?>
+                            <div>
+                                <?php _auto_link($invoice->client_zip); ?>
+                            </div>
+                        <?php endif; ?>&nbsp;
+                        <?php if ($invoice->client_city): ?>
+                            <div>
+                                <?php _auto_link($invoice->client_city); ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                    <?php if ($invoice->client_country): ?>
+                        <div>
+                            <?php _auto_link($invoice->client_country); ?>
                         </div>
                     <?php endif; ?>
                     <?php if ($invoice->client_email): ?>
                         <div>
-                            <?php _trans('email'); ?>:&nbsp;
                             <?php _auto_link($invoice->client_email); ?>
                         </div>
                     <?php endif; ?>
@@ -330,24 +356,15 @@ if ($this->config->item('disable_read_only') == true) {
                             <?php _htmlsc($invoice->client_city_delivery); ?>
                         </div>
                     <?php endif; ?>
-                    <?php if ($invoice->client_state_delivery): ?>
-                        <div>
-                            <?php _trans('state'); ?>:&nbsp;
-                            <?php _htmlsc($invoice->client_state_delivery); ?>
-                        </div>
-                    <?php endif; ?>
-                    <?php if ($invoice->client_zip_delivery): ?>
-                        <div>
-                            <?php _trans('zip_code'); ?>:&nbsp;
-                            <?php _htmlsc($invoice->client_zip_delivery); ?>
-                        </div>
-                    <?php endif; ?>
+
                     <?php if ($invoice->client_country_delivery): ?>
                         <div>
                             <?php _trans('country'); ?>:&nbsp;
                             <?php _htmlsc(get_country_name(trans('cldr'), $invoice->client_country_delivery)); ?>
                         </div>
                     <?php endif; ?>
+
+
                 </div>
 
                 <div class="col-xs-12 visible-xs"><br></div>
@@ -385,7 +402,7 @@ if ($this->config->item('disable_read_only') == true) {
                                     <label><?php _trans('invoice_created_by'); ?> </label>
                                     <input type="text" class="form-control input-sm"
                                            value="<?php _htmlsc($invoice->user_name); ?>"
-                                            >
+                                    >
                                 </div>
 
                                 <div class="invoice-properties has-feedback">
@@ -424,17 +441,17 @@ if ($this->config->item('disable_read_only') == true) {
                                 <?php endforeach; ?>
                                 <?php if ($invoice->invoice_status_id != 1) { ?>
 
-                                        <div class="invoice-properties has-feedback">
-                                            <label for="invoice-guest-url"><?php _trans('guest_url'); ?></label>
-                                            <div class="input-group">
-                                                <input type="text" id="invoice-guest-url" readonly class="form-control"
-                                                       value="<?php echo site_url('guest/view/invoice/' . $invoice->invoice_url_key) ?>">
-                                                <span class="input-group-addon to-clipboard cursor-pointer"
-                                                      data-clipboard-target="#invoice-guest-url">
+                                    <div class="invoice-properties has-feedback">
+                                        <label for="invoice-guest-url"><?php _trans('guest_url'); ?></label>
+                                        <div class="input-group">
+                                            <input type="text" id="invoice-guest-url" readonly class="form-control"
+                                                   value="<?php echo site_url('guest/view/invoice/' . $invoice->invoice_url_key) ?>">
+                                            <span class="input-group-addon to-clipboard cursor-pointer"
+                                                  data-clipboard-target="#invoice-guest-url">
                                                 <i class="fa fa-clipboard fa-fw"></i>
                                             </span>
-                                            </div>
                                         </div>
+                                    </div>
 
                                 <?php } ?>
                                 <div class="invoice-properties has-feedback">
@@ -452,7 +469,8 @@ if ($this->config->item('disable_read_only') == true) {
                                 </div>
                                 <div class="invoice-properties">
                                     <label><?php _trans('Purchase Order'); ?> </label>
-                                    <input name="purchase_order" id="purchase_order" type="text" class="form-control input-sm"
+                                    <input name="purchase_order" id="purchase_order" type="text"
+                                           class="form-control input-sm"
                                            value="<?php _htmlsc($invoice->purchase_order); ?>"
                                     >
                                 </div>
@@ -536,7 +554,7 @@ if ($this->config->item('disable_read_only') == true) {
                                 </div>
                                 <div class="invoice-properties">
                                     <label><?php _trans('Currency'); ?></label>
-                                    <?php $invoice_currency = $currency ? $currency->currency :'EUR'; ?>
+                                    <?php $invoice_currency = $currency ? $currency->currency : 'EUR'; ?>
                                     <select name="currency" id="currency"
                                             class="form-control input-sm simple-select">
                                         <?php foreach (get_currencies() as $cur) { ?>
@@ -548,10 +566,6 @@ if ($this->config->item('disable_read_only') == true) {
                                     </select>
                                 </div>
                             </div>
-
-
-
-
                             <?php if ($offer != null) { ?>
                                 <div class="col-xs-12 col-md-6">
                                     <div class="form-group">
@@ -567,6 +581,45 @@ if ($this->config->item('disable_read_only') == true) {
                                     </div>
                                 </div>
                             <?php } ?>
+
+                        </div>
+
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading form-inline clearfix">
+                            <?php _trans('Mailbox Information'); ?>
+                        </div>
+                        <div class="panel-body">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label for="mailing_address"><?php _trans('Mailing address'); ?></label>
+
+                                    <div class="controls">
+                                        <input type="text" name="mailing_address" id="mailing_address"
+                                               class="form-control"
+                                               value="<?php _htmlsc($invoice->mailing_address); ?>">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="city_mailing_address"><?php _trans('City mailing address'); ?></label>
+
+                                    <div class="controls">
+                                        <input type="text" name="city_mailing_address" id="city_mailing_address" class="form-control"
+                                               value="<?php _htmlsc($invoice->city_mailing_address); ?>">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="zip_code_mailing_address"><?php _trans('Zip code mailing address'); ?></label>
+
+                                    <div class="controls">
+                                        <input type="text" name="zip_code_mailing_address" id="zip_code_mailing_address" class="form-control"
+                                               value="<?php _htmlsc($invoice->zip_code_mailing_address); ?>">
+                                    </div>
+                                </div>
+
+                            </div>
 
                         </div>
                     </div>
@@ -612,7 +665,9 @@ if ($this->config->item('disable_read_only') == true) {
                             <?php _trans('extra_description'); ?>
                         </div>
                         <div class="panel-body">
-                            <textarea id="invoice_extra_description" name="invoice_extra_description" class="form-control" rows="3"><?php _htmlsc($invoice->invoice_extra_description); ?></textarea>
+                            <textarea id="invoice_extra_description" name="invoice_extra_description"
+                                      class="form-control"
+                                      rows="3"><?php _htmlsc($invoice->invoice_extra_description); ?></textarea>
                         </div>
                     </div>
 

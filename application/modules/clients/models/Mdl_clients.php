@@ -277,7 +277,7 @@ class Mdl_Clients extends Response_Model
     public function db_array()
     {
         $db_array = parent::db_array();
-
+//        var_dump($db_array);die;
 
 
 
@@ -295,12 +295,76 @@ class Mdl_Clients extends Response_Model
 
         return $db_array;
     }
-
+    public function invoice($id){
+        $this->db->select('*');
+        $this->db->where('client_id', $id);
+        $this->db->from('ip_clients');
+        $invoices = $this->db->get()->result_array();
+        return $invoices;
+    }
+    public function notes($id){
+        $this->db->select('*');
+        $this->db->where('client_id', $id);
+        $this->db->from('ip_client_notes');
+        $notes = $this->db->get()->result_array();
+        return $notes;
+    }
     public function save($id = NULL, $db_array = NULL)
     {
+//        die('sds');
+//        var_dump($this->input->post());die;
         if ($id != NULL) {
             $this->db->where('client_id', $id);
             $this->db->delete('ip_clients_groups');
+        }
+        if ($this->input->post()){
+            $data = array(
+                'client_phone2' => $this->input->post('client_phone2'),
+                'mailing_address' => $this->input->post('mailing_address'),
+                'city_mailing_address' => $this->input->post('city_mailing_address'),
+                'zip_code_mailing_address' => $this->input->post('zip_code_mailing_address'),
+                'representative_id' => $this->input->post('representative_id'),
+                'column_id' => $this->input->post('column_id'),
+                'client_code'=> $this->input->post('client_code'),
+                'debtor_code' => $this->input->post('debtor_code'),
+                'visiting_address'=> $this->input->post('visiting_address'),
+                'zip_code_visiting_address' =>$this->input->post('zip_code_visiting_address'),
+                'city_visiting_address' =>$this->input->post('city_visiting_address'),
+                'bln_purchasing_combination' => $this->input->post('bln_purchasing_combination'),
+                'payment_condition' =>$this->input->post('payment_condition'),
+                'txt_purchasing_combination' =>$this->input->post('txt_purchasing_combination'),
+                'bln_removed' => $this->input->post('bln_removed'),
+                'dbl_discount' => $this->input->post('dbl_discount'),
+                'first_name_contact_person' => $this->input->post('first_name_contact_person'),
+                'surname_contact_person' => $this->input->post('surname_contact_person'),
+            );
+            $this->db->where('client_id', $id);
+            $this->db->update('ip_clients',$data);
+
+        }
+        if ($this->input->post('client_note')){
+            $note = array(
+                'client_id' => $id,
+                'client_note' => $this->input->post('client_note'),
+                'client_note2' => $this->input->post('client_note2'),
+                'txt_source_of_note' => $this->input->post('txt_source_of_note'),
+                'dtm_note' => $this->input->post('dtm_note'),
+
+            );
+            $this->db->insert('ip_client_notes',$note);
+
+        }
+        if ($this->input->post('invoice')){
+            $note = array(
+                'client_id' => $id,
+                'client_note' => $this->input->post('client_note'),
+                'client_note2' => $this->input->post('client_note2'),
+                'txt_source_of_note' => $this->input->post('txt_source_of_note'),
+                'dtm_note' => $this->input->post('dtm_note'),
+
+            );
+            $this->db->insert('ip_client_notes',$note);
+
         }
 
         $group_ids = array();
@@ -333,6 +397,8 @@ class Mdl_Clients extends Response_Model
         }
 
         return $id;
+
+
     }
 
     /**
