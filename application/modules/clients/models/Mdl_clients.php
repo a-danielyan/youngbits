@@ -277,10 +277,6 @@ class Mdl_Clients extends Response_Model
     public function db_array()
     {
         $db_array = parent::db_array();
-//        var_dump($db_array);die;
-
-
-
 
         $db_array['created_user_id'] = $this->session->userdata('user_id');
         /*$db_array['commission_rate_id'] = json_encode($this->input->post('commission_rate_id'));*/
@@ -311,8 +307,7 @@ class Mdl_Clients extends Response_Model
     }
     public function save($id = NULL, $db_array = NULL)
     {
-//        die('sds');
-//        var_dump($this->input->post());die;
+
         if ($id != NULL) {
             $this->db->where('client_id', $id);
             $this->db->delete('ip_clients_groups');
@@ -354,18 +349,18 @@ class Mdl_Clients extends Response_Model
             $this->db->insert('ip_client_notes',$note);
 
         }
-        if ($this->input->post('invoice')){
-            $note = array(
-                'client_id' => $id,
-                'client_note' => $this->input->post('client_note'),
-                'client_note2' => $this->input->post('client_note2'),
-                'txt_source_of_note' => $this->input->post('txt_source_of_note'),
-                'dtm_note' => $this->input->post('dtm_note'),
-
-            );
-            $this->db->insert('ip_client_notes',$note);
-
-        }
+//        if ($this->input->post('invoice')){
+//            $note = array(
+//                'client_id' => $id,
+//                'client_note' => $this->input->post('client_note'),
+//                'client_note2' => $this->input->post('client_note2'),
+//                'txt_source_of_note' => $this->input->post('txt_source_of_note'),
+//                'dtm_note' => $this->input->post('dtm_note'),
+//
+//            );
+//            $this->db->insert('ip_client_notes',$note);
+//
+//        }
 
         $group_ids = array();
         if ($this->input->post('client_group_id')) {
@@ -407,7 +402,6 @@ class Mdl_Clients extends Response_Model
     public function delete($id)
     {
         parent::delete($id);
-
         $this->load->helper('orphan');
         delete_orphans();
     }

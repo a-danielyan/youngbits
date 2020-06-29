@@ -8,6 +8,13 @@ if (empty($notes) ){
     $notes[0]['client_note2'] = '';
     $notes[0]['client_note_id'] = '';
 }
+if (empty($data) ){
+    $data[0]['client_address_1'] = '';
+    $data[0]['client_zip'] = '';
+    $data[0]['client_city'] = '';
+    $data[0]['client_country'] = '';
+
+}
 //var_dump($notes[0][]);die;
 
 ?>
@@ -81,7 +88,7 @@ if (empty($notes) ){
                                 <?php _trans('Client ID'); ?>
                             </label>
                             <input id="client _id" name="client_id" type="text" class="form-control"
-                                   autofocus
+                                   autofocus readonly
                                    value="<?php echo $this->mdl_clients->form_value('client_id', true); ?>">
                         </div>
                         <div class="form-group">

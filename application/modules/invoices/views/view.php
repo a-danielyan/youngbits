@@ -1,6 +1,5 @@
 <?php
 $cv = $this->controller->view_data["custom_values"];
-//var_dump($invoice);die;
 ?>
 
 <script>
